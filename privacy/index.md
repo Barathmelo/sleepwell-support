@@ -1,175 +1,110 @@
 ---
-title: "Privacy Policy - Sleep Tracker: SleepWell"
+title: "Sleep Well Privacy Policy"
 ---
 
-# Privacy Policy for Sleep Tracker: SleepWell
+[Support](../) · [简体中文](zh-Hans/) · [Sound Credits](../sound-credits/)
 
+# Sleep Well Privacy Policy
 
-Developer: Zihan Wang
-Contact: jxiaoai@icloud.com
+Developer: Zihan Wang  
+Contact: jxiaoai@icloud.com  
+Effective date: July 25, 2026  
+Last updated: November 1, 2026
 
-This Privacy Policy explains how Sleep Tracker: SleepWell (“SleepWell,” “the App,” “we,” “us,” or “our”) accesses, processes, stores, and protects information.
+This policy describes how Sleep Well (the “App,” “we,” or “our”) accesses, processes, stores, and protects information.
 
-## 1. Privacy at a Glance
+## 1. Privacy at a glance
 
-SleepWell is designed to keep your sleep, health, and night sound data on your device.
+Basic sleep, health, and night sound analysis takes place on your device. AI nightly analysis and weekly/monthly summaries are optional Pro features that use cloud processing. We send the summaries described below only after your separate consent and activation. Nightly AI analysis starts when you request it; enabled weekly/monthly summaries may be generated when you view the relevant period.
 
-We do not operate a backend server that receives your Apple Health data, raw microphone audio, or night sound reports. We do not use advertising SDKs, tracking technologies, or third-party analytics SDKs.
+We use Cloudflare Workers and Workers AI for these AI features. We do not upload raw Apple Health samples, microphone audio, sound timelines, or night sound report files. The App has no advertising SDK, cross-app tracking, or third-party analytics SDK. We do not sell personal information or use health information for advertising, marketing, profiling, or data brokerage.
 
-We do not sell personal information or use health information for advertising, marketing, profiling, or data brokerage.
+## 2. Apple Health and optional AI processing
 
-## 2. Apple Health Data
+With your permission, the App reads available sleep records and stages, heart rate, heart rate variability, blood oxygen, sleeping respiratory rate, and sleeping wrist temperature through HealthKit. These support sleep summaries, Sleep Charge, recovery estimates, sleep debt, consistency, health trends, and nightly or period analysis.
 
-With your permission, SleepWell reads available health information from Apple Health through HealthKit, including:
+Sleep or nap intervals you confirm are saved locally and may be written to Apple Health. When you delete a synchronized manual record in the App, we first attempt to remove the corresponding Health record written by this App. We do not change records written by another app or device.
 
-- Sleep analysis and sleep stages
-- Heart rate
-- Heart rate variability
-- Blood oxygen saturation
-- Sleeping respiratory rate
-- Sleeping wrist temperature
+Basic analysis stays on-device. Raw HealthKit samples are not uploaded. You can change or revoke Health access in your iPhone’s Health or Settings app.
 
-SleepWell uses this information to provide features such as:
+### Optional Cloudflare AI features
 
-- Sleep duration and stage summaries
-- Sleep Charge and recovery ratings
-- Sleep debt and sleep consistency trends
-- Heart rate, blood oxygen, breathing, and recovery insights
-- Weekly and monthly sleep analysis
+The App separately explains and requests permission before enabling AI. Period requests send aggregated values over HTTPS to Cloudflare Workers and Workers AI. These may include period type, recorded-night counts, sleep goal, average sleep duration and change, average Sleep Charge and change, schedule variability, sleep debt, below-goal night counts, weekday/weekend grouping statistics and relative wake-time differences, and recorded awake duration where coverage is sufficient.
 
-Health data is processed on your device. It is not uploaded to our servers, sold, used for advertising, or shared with data brokers.
+When available, requests also include current and previous period totals for Light, REM, and Deep sleep with stage coverage; valid-night counts and averages/ranges of nightly heart rate, oxygen, HRV, respiratory rate, and wrist temperature summaries; and estimated sound-event counts/durations, valid monitoring duration, and complete-report counts. Physiological ranges describe nightly summaries rather than raw sample extremes. Missing values are not treated as zero.
 
-You control HealthKit access and may change or revoke permissions at any time in your iPhone’s Health or Settings app.
+Nightly analysis sends that night’s sleep duration, goal, and calculated Sleep Charge. Available summaries may add classified sleep, Deep and REM duration, physiological measurements, actual sound-monitoring duration, estimated snoring duration, and higher ambient-sound proportion. Recent context uses only valid-night counts from the preceding seven calendar days; averages and relative bedtime/wake-time shifts are included only with enough records. It does not send the specific sleep date or clock times. Basic records do not acquire invented stages or physiological measurements.
 
-## 3. Microphone and Night Sound Monitoring
+AI requests attach Apple-signed subscription proof to the Worker to verify Pro access. It contains Apple transaction information such as product, transaction identifiers, environment, and expiration, not payment-card details. The proof is not included in AI model prompts. A hashed transaction identifier is used for short-term rate limiting; raw transaction identifiers are not written to application logs or a database.
 
-Night Sound Monitoring is optional and requires microphone permission.
+The model writes observations and suggestions from the aggregated evidence. The App validates the response and displays it without generating substitute text on failure. Full responses may be reused in the current process but are not saved to disk. Up to 24 focus selections and their feedback that you actively save remain locally. A follow-up may send the previous focus’s action type and tried/not-tried/no-feedback status, not its original text or period dates.
 
-When you start monitoring, SleepWell processes audio on your device to identify possible sound categories such as:
+Our Worker does not persist health request bodies, subscription proof, or model responses in application logs, databases, or object storage. Cloudflare’s [Privacy Policy](https://www.cloudflare.com/privacypolicy/) and [Workers AI data policy](https://developers.cloudflare.com/workers-ai/platform/data-usage/) apply to its processing. Its current policy limits ordinary real-time inference content to servicing the request and excludes model training; operational metadata and security/legal exceptions remain governed by that policy. We do not enable AI Gateway content logs or AI-content storage features.
 
-- Snoring
-- Coughing
-- Possible sleep talking
-- Ambient noise
-- Quiet periods
+We do not send raw HealthKit samples, sleep-date timelines, sound timelines, snore clips, microphone audio, or transcripts to the model. You can turn AI off in Settings to stop future requests while continuing basic analysis. AI may be inaccurate and does not replace medical judgment. Cloud or response failures show an error and retry option.
 
-Full-night raw audio is not uploaded or saved. Possible sleep talking is not transcribed.
+## 3. Microphone and night sound monitoring
 
-The App may store a local night sound report containing information such as monitoring duration, timestamps, detected sound categories, estimated sound levels, event counts, and report status.
+Night Sound Monitoring is optional and requires microphone access. Audio is analyzed on-device for possible snoring, coughing, sleep talking, ambient noise, and quiet periods. We do not save or upload a full-night raw recording or transcribe possible sleep talking.
 
-### Optional Snore Clips
+Reports may be stored locally with monitoring duration, timestamps, detected categories, estimated sound levels, event counts, and completion/interruption status.
 
-Saving snore clips is disabled by default.
+Saving snore clips is off by default. If you enable it before monitoring, only detected snoring segments are saved inside the local App sandbox and are not uploaded. Unpinned clips have a seven-day retention period; expired files are removed the next time the App runs its cleanup. Clips you choose to keep remain until you delete them or remove the App. Available controls let you delete individual clips or saved reports and their associated clips.
 
-If you enable Save Snore Clips:
+## 4. Local storage and sound downloads
 
-- Only audio segments identified as possible snoring are stored
-- Clips remain inside the App’s local sandbox
-- Clips are not uploaded
-- Unpinned clips are deleted automatically after 7 days
-- Clips you choose to keep may remain until you delete them or remove the App
-- You can delete individual clips or all saved clips using the available controls in the App
+The App may keep manual sleep/nap records, an active timer and Health synchronization state, night sound reports, optional snore clips, sleep goals, language/appearance/data-source preferences, and other necessary settings locally. Verified subscription information is used in the current session and refreshed from Apple; a local preference is not used to invent Pro access.
 
-## 4. Information Stored Locally
+A local flag records whether the first free monitoring session has been used. It is consumed when monitoring actually starts, regardless of whether the session finishes normally. AI consent and up to 24 focus selections with their text, action type, and feedback are stored locally. Sound favorites, mixes, volumes, timers, downloaded files, and download indexes may also be saved.
 
-SleepWell may store the following information locally on your device:
+These local reports, recordings, and preference files are not uploaded to our backend. Optional AI uses only the aggregated values and subscription proof described above. Removing the App normally removes its local data; Apple Health data remains managed by Apple Health.
 
-- Night sound reports and event summaries
-- Optional saved snore clips
-- Sleep goal preferences
-- Language, appearance, and data-source preferences
-- Subscription access status
-- Whether the included first full-night sound experience has been completed
-- Other settings required for App functionality
+The App does not offer a separate iCloud synchronization or backup switch. System backup and device-transfer behavior depends on your Apple device and iCloud settings; we do not promise that every local report or clip will or will not migrate in a system backup.
 
-This information is not sent to a developer-operated server.
+Sound assets are downloaded from our HTTPS catalog and file service, distributed by Cloudflare, checked, and played locally. The service receives technical connection information such as an IP address, requested file path, and user agent, not Health records, night recordings, or saved sound-report files. Cloudflare may process necessary operational and security metadata under its policies.
 
-Deleting the App normally removes its locally stored data from the device. Apple Health data remains under your control in Apple Health.
+Downloads do not expire automatically and can be removed in the App. Downloaded sound files are excluded from the App’s system-backup participation. Authors, sources, licenses, and processing notes are available from Sound Credits in Settings.
 
-## 5. Subscriptions and Purchases
+## 5. Subscriptions and purchases
 
-Sleep Well Pro subscriptions are processed by Apple through StoreKit and the App Store.
+Apple handles Sleep Well Pro purchases through StoreKit and the App Store, including Apple Account information, payment, renewals, cancellation, and refunds. We do not receive or store payment-card details. The App uses Apple-verified subscription information to determine Pro access. Optional AI also uses signed subscription proof as described in section 2. Apple’s privacy policy and terms apply to Apple’s processing.
 
-Apple handles your Apple Account, payment method, billing information, renewals, cancellations, and refunds. SleepWell does not receive or store your payment card details.
+## 6. Customer support
 
-The App receives only the verified subscription information needed to determine whether Pro features should be unlocked, such as the active product identifier and current entitlement status.
+If you email us, we receive what you choose to send, which may include your email address, message, device details, or screenshots. We use it to respond, investigate issues, and improve support. Please avoid sending Health records, recordings, or other sensitive information unless needed for the request. Support correspondence may be retained as reasonably necessary to resolve the request, maintain support records, or meet legal obligations.
 
-Apple’s handling of purchase information is governed by Apple’s own privacy policy and terms.
+## 7. Advertising, analytics, and tracking
 
-## 6. Customer Support
+The App has no third-party advertising, behavioral tracking, or third-party analytics SDK. We do not track users across apps/sites, sell health information, share it with advertising networks or data brokers, or create advertising profiles from sleep or sound information.
 
-If you contact us by email, we may receive the email address, message content, device information, screenshots, or other information that you choose to provide.
+## 8. Sharing
 
-We use this information only to respond to your request, investigate technical issues, and improve support. Please do not include HealthKit records, audio clips, or other sensitive health information unless it is necessary for your support request.
+After your separate AI consent, Cloudflare processes the specified summaries and subscription proof as a service provider. Raw HealthKit samples, microphone audio, report files, and snore clips are not shared. Cloudflare also distributes sound files as described in section 4.
 
-Support communications may be retained for as long as reasonably necessary to resolve the request, maintain support records, or comply with applicable law.
+Apple processes information when you authorize Health access, download/update the App, purchase/manage subscriptions, or use App Store services. Applicable Apple policies govern this processing. We may disclose information we actually hold when required by law, valid legal requests, or protection of users’ rights and safety; our Worker does not persist AI request content.
 
-## 7. Analytics, Advertising, and Tracking
+## 9. Retention and deletion
 
-SleepWell does not currently include third-party advertising, behavioral tracking, or third-party analytics SDKs.
+Apple Health manages raw HealthKit information; our service does not persist those samples. Optional AI real-time processing is described in section 2. Local reports and preferences remain until removed through the App or by uninstalling it. Unpinned clips expire after seven days and are deleted when the App next runs its cleanup; deleting a report also removes its associated clips. Sound downloads can be removed from the App.
 
-We do not:
-
-- Track you across apps or websites
-- Use HealthKit data for advertising or marketing
-- Sell health or personal information
-- Share health data with advertising networks or data brokers
-- Build advertising profiles from your sleep or sound data
-
-## 8. Sharing of Information
-
-We do not share your HealthKit data, raw microphone audio, night sound reports, or saved snore clips with third parties.
-
-Information may be processed by Apple when you:
-
-- Grant Apple Health permissions
-- Download or update the App
-- Purchase or manage a subscription
-- Use Apple-operated App Store services
-
-Apple processes this information under its own privacy policies.
-
-We may disclose information if required to comply with applicable law, a valid legal request, or to protect the rights and safety of users. Because App health and sound data remains on your device, we generally do not possess that data to disclose.
-
-## 9. Data Retention and Deletion
-
-HealthKit data remains managed by Apple Health and is not retained on our servers.
-
-Local night sound reports and preferences remain on your device until removed through available App controls or until the App is deleted.
-
-Optional snore clips are deleted after 7 days unless you choose to keep them. You may delete saved clips from within the App.
-
-To remove local App data, you may delete SleepWell from your device. To revoke health access, manage SleepWell’s permissions in Apple Health or iPhone Settings.
-
-To request deletion of information you previously sent through customer support, contact us at jxiaoai@icloud.com.
+To request deletion of information you previously sent to support, contact jxiaoai@icloud.com.
 
 ## 10. Security
 
-SleepWell uses iOS sandboxing and available device data-protection features to protect locally stored information.
+We use iOS sandboxing and available device data protection for local information. No security method offers an absolute guarantee. Protect access to your iPhone, Apple Account, device passcode, and backups.
 
-No security method can guarantee absolute protection. You are responsible for protecting access to your iPhone, Apple Account, device passcode, and backups.
+## 11. Children
 
-## 11. Children’s Privacy
+Sleep Well is not specifically directed to children under 13. We do not knowingly collect children’s personal information through a developer-operated server. Contact us if you believe a child has sent personal information to support so we can investigate and remove it where appropriate.
 
-SleepWell is not specifically directed to children under 13. We do not knowingly collect personal information from children through a developer-operated server.
+## 12. Health disclaimer
 
-If you believe a child has provided personal information through a support communication, contact us so that we can review and delete it when appropriate.
+Sleep Well supports general wellness and information, not medical advice, diagnosis, or treatment. Scores, recovery estimates, sound classifications, and other insights are estimates and must not be used to diagnose sleep apnea or another condition. Consult a qualified healthcare professional about health or sleep concerns and before making medical decisions.
 
-## 12. Health Disclaimer
+## 13. Changes
 
-SleepWell is intended for general wellness and informational purposes only. It does not provide medical advice, diagnosis, or treatment.
+We may update this policy when features, data practices, or legal requirements change. We publish the revised date on the policy page and communicate material changes as required.
 
-Sleep scores, recovery ratings, sound classifications, and other insights are estimates and should not be used to diagnose sleep apnea or any other medical condition.
+## 14. Contact
 
-If you have concerns about your health or sleep, consult a qualified healthcare professional.
-
-## 13. Changes to This Policy
-
-We may update this Privacy Policy when the App’s features, data practices, or legal requirements change.
-
-The updated policy will be published on this page with a revised effective date. Material changes will be communicated as required by applicable law.
-
-## 14. Contact Us
-
-For privacy questions, support requests, or data deletion requests, contact:
-Email: jxiaoai@icloud.com
+Privacy, support, and deletion requests: jxiaoai@icloud.com.
