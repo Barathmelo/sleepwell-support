@@ -9,7 +9,7 @@ title: "Sleep Well Privacy Policy"
 Developer: Zihan Wang  
 Contact: jxiaoai@icloud.com  
 Effective date: July 25, 2026  
-Last updated: November 1, 2026
+Last updated: November 2, 2026
 
 This policy describes how Sleep Well (the “App,” “we,” or “our”) accesses, processes, stores, and protects information.
 
@@ -77,9 +77,19 @@ If you email us, we receive what you choose to send, which may include your emai
 
 The App has no third-party advertising, behavioral tracking, or third-party analytics SDK. We do not track users across apps/sites, sell health information, share it with advertising networks or data brokers, or create advertising profiles from sleep or sound information.
 
+### Technical diagnostics
+
+To detect and resolve failures, release builds automatically send limited technical diagnostics to our separate Cloudflare diagnostic service. These describe the operation category (AI analysis, sound-catalog loading, or sound download), success or controlled error category, HTTP status, elapsed time, App version/build, iOS major version, and a coarse queue-age value. The service also records controlled AI-service outcomes and scheduled checks using public sound assets and a fixed synthetic AI prompt. Diagnostics are used only to maintain functionality, availability, and performance.
+
+Diagnostic events do not include HealthKit values, sleep dates or timelines, AI prompts or answers, microphone audio, snore clips, subscription proof, transaction identifiers, file URLs, your selected sound or mix, free-text errors, or a persistent user/device identifier. AI health requests and Apple-signed proof are not forwarded to the diagnostic service. Cloudflare necessarily receives connection metadata, such as the source IP address, under its own policies; we do not write the IP address or its rate-limit hash into application diagnostic events. This technical collection does not depend on enabling optional AI and does not send health content when AI is off.
+
+Each operation has a separate random event code to avoid counting retries twice. It is not an installation or device identifier and cannot link separate operations. The diagnostic service stores only that code and its receipt time in a deduplication table, expiring them after seven days and removing expired entries at the next scheduled cleanup; the code is not written into diagnostic logs.
+
+When offline, up to 100 diagnostic events may be queued locally. Events expire after seven days and are removed when the App next runs its cleanup, including while offline. This queue is excluded from system backup; delivered events are removed, and delivery is best effort. Our Cloudflare diagnostic logs are retained for up to seven days, depending on the service plan; Cloudflare's separate operational/security retention policies still apply. Alerts contain only the controlled technical fields. We do not use these events to identify listening habits or create user profiles.
+
 ## 8. Sharing
 
-After your separate AI consent, Cloudflare processes the specified summaries and subscription proof as a service provider. Raw HealthKit samples, microphone audio, report files, and snore clips are not shared. Cloudflare also distributes sound files as described in section 4.
+After your separate AI consent, Cloudflare processes the specified summaries and subscription proof as a service provider. Raw HealthKit samples, microphone audio, report files, and snore clips are not shared. Cloudflare also distributes sound files as described in section 4 and processes limited technical diagnostics as described in section 7.
 
 Apple processes information when you authorize Health access, download/update the App, purchase/manage subscriptions, or use App Store services. Applicable Apple policies govern this processing. We may disclose information we actually hold when required by law, valid legal requests, or protection of users’ rights and safety; our Worker does not persist AI request content.
 
