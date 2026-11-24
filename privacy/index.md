@@ -9,13 +9,13 @@ title: "Sleep Well Privacy Policy"
 Developer: Zihan Wang  
 Contact: jxiaoai@icloud.com  
 Effective date: July 25, 2026  
-Last updated: November 2, 2026
+Last updated: November 24, 2026
 
 This policy describes how Sleep Well (the “App,” “we,” or “our”) accesses, processes, stores, and protects information.
 
 ## 1. Privacy at a glance
 
-Basic sleep, health, and night sound analysis takes place on your device. AI nightly analysis and weekly/monthly summaries are optional Pro features that use cloud processing. We send the summaries described below only after your separate consent and activation. Nightly AI analysis starts when you request it; enabled weekly/monthly summaries may be generated when you view the relevant period.
+Basic sleep, health, and night sound analysis takes place on your device. AI nightly analysis and weekly/monthly summaries are optional Pro features that use cloud processing. We send the summaries described below only after your separate consent and activation. You request the first nightly report. The first weekly or monthly report can be generated when you open a period with enough records. Opening a report already saved in your current app language uses the copy on your device.
 
 We use Cloudflare Workers and Workers AI for these AI features. We do not upload raw Apple Health samples, microphone audio, sound timelines, or night sound report files. The App has no advertising SDK, cross-app tracking, or third-party analytics SDK. We do not sell personal information or use health information for advertising, marketing, profiling, or data brokerage.
 
@@ -29,15 +29,17 @@ Basic analysis stays on-device. Raw HealthKit samples are not uploaded. You can 
 
 ### Optional Cloudflare AI features
 
-The App separately explains and requests permission before enabling AI. Period requests send aggregated values over HTTPS to Cloudflare Workers and Workers AI. These may include period type, recorded-night counts, sleep goal, average sleep duration and change, average Sleep Charge and change, schedule variability, sleep debt, below-goal night counts, weekday/weekend grouping statistics and relative wake-time differences, and recorded awake duration where coverage is sufficient.
+Before enabling AI, the App asks you to agree to cloud generation and local storage of reports. If you agreed to an earlier version that kept reports only during the session, you will be asked again. Period requests send aggregated values over HTTPS to Cloudflare Workers and Workers AI. These may include period type, recorded-night counts, sleep goal, average sleep duration and change, average Sleep Charge and change, schedule variability, sleep debt, below-goal night counts, weekday/weekend grouping statistics and relative wake-time differences, and recorded awake duration where coverage is sufficient.
 
-When available, requests also include current and previous period totals for Light, REM, and Deep sleep with stage coverage; valid-night counts and averages/ranges of nightly heart rate, oxygen, HRV, respiratory rate, and wrist temperature summaries; and estimated sound-event counts/durations, valid monitoring duration, and complete-report counts. Physiological ranges describe nightly summaries rather than raw sample extremes. Missing values are not treated as zero.
+When available, requests also include current and previous period totals for Light, REM, and Deep sleep with stage coverage; valid-night counts and averages/ranges of nightly heart rate, oxygen, HRV, respiratory rate, and wrist temperature summaries; and estimated sound-event counts/durations, valid monitoring duration, and complete-report counts. Physiological ranges describe nightly summaries rather than raw sample extremes. The weekly summary may include total awake minutes and the combined awake minutes of the three nights with the most recorded awake time, along with the boundary values separating those nights from the others. With enough monthly coverage, the app may send the mean and range of nightly heart rates for the earliest and most recent groups of seven nights with heart rate readings. Missing values are not treated as zero.
 
-Nightly analysis sends that night’s sleep duration, goal, and calculated Sleep Charge. Available summaries may add classified sleep, Deep and REM duration, physiological measurements, actual sound-monitoring duration, estimated snoring duration, and higher ambient-sound proportion. Recent context uses only valid-night counts from the preceding seven calendar days; averages and relative bedtime/wake-time shifts are included only with enough records. It does not send the specific sleep date or clock times. Basic records do not acquire invented stages or physiological measurements.
+Nightly analysis sends that night’s sleep duration, goal, and calculated Sleep Charge. Available summaries may add classified sleep, Deep and REM duration, physiological measurements, actual sound-monitoring duration, estimated snoring duration, and higher ambient-sound proportion. Recent context uses valid records from the preceding seven calendar days. With sufficient coverage, it can include the number of comparable nights, ranges of nightly physiological values, stage shares, awake minutes and awakening counts, the longest recorded sleep stretch and total sleep for the same set of comparable nights, averages, relative timing differences, and current and recent Sleep Charge component scores. It does not send the specific sleep date or clock times. Basic records do not acquire invented stages or physiological measurements.
 
 AI requests attach Apple-signed subscription proof to the Worker to verify Pro access. It contains Apple transaction information such as product, transaction identifiers, environment, and expiration, not payment-card details. The proof is not included in AI model prompts. A hashed transaction identifier is used for short-term rate limiting; raw transaction identifiers are not written to application logs or a database.
 
-The model writes observations and suggestions from the aggregated evidence. The App validates the response and displays it without generating substitute text on failure. Full responses may be reused in the current process but are not saved to disk. Up to 24 focus selections and their feedback that you actively save remain locally. A follow-up may send the previous focus’s action type and tried/not-tried/no-feedback status, not its original text or period dates.
+After validating a response, the App saves the report text and the derived data used to display its charts and insights, so you can reopen the same nightly, weekly or monthly report after restarting the App. If sleep records change, the saved report still shows the data it was based on. You can choose **Update report** or **Regenerate report** from the card menu to generate a new report using the latest records. If generation fails, the previous report remains available.
+
+Up to 24 focus selections and their feedback that you actively save remain locally. A follow-up may send the previous focus’s topic identifier, action type and tried/not-tried/no-feedback status, not its original text or period dates.
 
 Our Worker does not persist health request bodies, subscription proof, or model responses in application logs, databases, or object storage. Cloudflare’s [Privacy Policy](https://www.cloudflare.com/privacypolicy/) and [Workers AI data policy](https://developers.cloudflare.com/workers-ai/platform/data-usage/) apply to its processing. Its current policy limits ordinary real-time inference content to servicing the request and excludes model training; operational metadata and security/legal exceptions remain governed by that policy. We do not enable AI Gateway content logs or AI-content storage features.
 
@@ -55,11 +57,11 @@ Saving snore clips is off by default. If you enable it before monitoring, only d
 
 The App may keep manual sleep/nap records, an active timer and Health synchronization state, night sound reports, optional snore clips, sleep goals, language/appearance/data-source preferences, and other necessary settings locally. Verified subscription information is used in the current session and refreshed from Apple; a local preference is not used to invent Pro access.
 
-A local flag records whether the first free monitoring session has been used. It is consumed when monitoring actually starts, regardless of whether the session finishes normally. AI consent and up to 24 focus selections with their text, action type, and feedback are stored locally. Sound favorites, mixes, volumes, timers, downloaded files, and download indexes may also be saved.
+A local flag records whether the first free monitoring session has been used. It is consumed when monitoring actually starts, regardless of whether the session finishes normally. AI reports are saved in the App’s private storage with iOS file protection and are excluded from device backups. AI consent and up to 24 focus selections with their text, action type, and feedback are stored locally. Sound favorites, mixes, volumes, timers, downloaded files, and download indexes may also be saved.
 
 These local reports, recordings, and preference files are not uploaded to our backend. Optional AI uses only the aggregated values and subscription proof described above. Removing the App normally removes its local data; Apple Health data remains managed by Apple Health.
 
-The App does not offer a separate iCloud synchronization or backup switch. System backup and device-transfer behavior depends on your Apple device and iCloud settings; we do not promise that every local report or clip will or will not migrate in a system backup.
+The App does not offer a separate iCloud synchronization or backup switch. For local data included in system backup, backup and device-transfer behavior depends on your Apple device and iCloud settings.
 
 Sound assets are downloaded from our HTTPS catalog and file service, distributed by Cloudflare, checked, and played locally. The service receives technical connection information such as an IP address, requested file path, and user agent, not Health records, night recordings, or saved sound-report files. Cloudflare may process necessary operational and security metadata under its policies.
 
@@ -95,7 +97,7 @@ Apple processes information when you authorize Health access, download/update th
 
 ## 9. Retention and deletion
 
-Apple Health manages raw HealthKit information; our service does not persist those samples. Optional AI real-time processing is described in section 2. Local reports and preferences remain until removed through the App or by uninstalling it. Unpinned clips expire after seven days and are deleted when the App next runs its cleanup; deleting a report also removes its associated clips. Sound downloads can be removed from the App.
+Apple Health manages raw HealthKit information; our service does not persist those samples. Optional AI real-time processing is described in section 2. Turning off AI stops access to saved AI reports and further AI requests. Each saved report remains on this device until replaced by a newly saved report for the same date or period and language, or until you delete the App. Night sound reports can be deleted in the App. Unpinned clips expire after seven days and are deleted when the App next runs its cleanup; deleting a report also removes its associated clips. Sound downloads can be removed from the App.
 
 To request deletion of information you previously sent to support, contact jxiaoai@icloud.com.
 
